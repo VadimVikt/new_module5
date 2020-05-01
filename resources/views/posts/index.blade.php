@@ -14,7 +14,8 @@
                             <h3 class="mb-0">{{ $post->title }}</h3>
                             <div class="mb-1 text-muted">{{ $post->created_at->toFormattedDateString() }}</div>
                             <p class="card-text mb-auto">{{ $post->short_description }}</p>
-                            <a href="/posts/{{ $post->slug }}" class="stretched-link">Continue reading</a>
+                            <a href="/posts/{{ $post->slug }}" class="stretched-link">Продолжить чтение</a>
+                            @include('posts.tags', ['tags' => $post->tags])
                         </div>
                     </div>
                     </div>
