@@ -1,18 +1,20 @@
 
 @extends('layout.master')
 
-@section('title', $slug->title)
-
+@section('title', $post->title)
+<?var_dump($post)?>
 @section('content')
     <div class="col-md-8 blog-main" >
         <h3 class="pb-3 mb-4 font italic border-bottom">
-            {{ $slug->title }}
+            {{ $post->title }}
+            <a href="/posts/{{ $post->slug }}/edit">Редактировать</a>
         </h3>
+       @include('posts.tags', ['tags' => $post->tags])
         <h4 class="pb-3 mb-4 font italic border-bottom">
-            {{ $slug->created_at->toFormattedDateString() }}
+            {{ $post->created_at->toFormattedDateString() }}
         </h4>
 
-        {{ $slug->body }}
+        {{ $post->body }}
 
     </div>
 @endsection
