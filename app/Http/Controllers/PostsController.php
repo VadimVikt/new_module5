@@ -7,6 +7,12 @@ use App\Tag;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //['only' => перечислить на кого действует]
+//        $this->middleware('can:update,post')->except(['index', 'store', 'create']);
+    }
+
     public function index()
     {
         $posts = Post::with('tags')->latest()->get();
@@ -25,14 +31,15 @@ class PostsController extends Controller
 
     public function store()
     {
-        $this->validate(request(), [
+        $attributes = request()->validate([
             'slug' => 'required',
             'title' => 'required',
             'short_description' => 'required',
             'body' => 'required',
         ]);
+        $attributes['owner_id'] = auth()->id();
 
-        Post::create(request()->all());
+        Post::create($attributes);
 
         flash('Стаья успешно создана');
 
@@ -42,6 +49,7 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
 
         return view('posts.edit',compact('post'));
     }
