@@ -4,7 +4,7 @@ use App\Post;
 use App\Feedbacks;
 
 Route::get('/', function () {
-    $posts = Post::Latest()->get(['id','title', 'short_description', 'created_at']);
+    $posts = Post::Latest()->limit(3)->get(['id','title', 'short_description', 'slug','created_at']);
     return view('welcome', compact( 'posts'));
 });
 
