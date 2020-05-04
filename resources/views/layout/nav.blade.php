@@ -39,6 +39,7 @@
             <a class="p-2 text-muted" href="/contacts">Контакты</a>
             <a class="p-2 text-muted" href="/posts/create">Добавить статью</a>
             <a class="p-2 text-muted" href="/admin/feedbacks">Административый раздел</a>
+            <a class="p-2 text-muted" href="/telescope">Телескоп</a>
         </nav>
     </div>
 </div>

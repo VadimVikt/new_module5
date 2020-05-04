@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PostCreated;
+use App\Notifications\PostDeleted;
+use App\Notifications\PostUpdated;
 use App\Post;
 use App\Tag;
 
@@ -16,6 +19,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::with('tags')->latest()->get();
+
         return view('posts.index', compact('posts'));
     }
     public function create()
@@ -39,7 +43,7 @@ class PostsController extends Controller
         ]);
         $attributes['owner_id'] = auth()->id();
 
-        Post::create($attributes);
+        $post = Post::create($attributes);
 
         flash('Стаья успешно создана');
 
@@ -76,12 +80,16 @@ class PostsController extends Controller
         foreach ($tagsToDetach as $tag) {
             $post->tags()->detach($tag); ############
         }
+        //уведомление об изменении
+        auth()->user(1)->notify(new PostUpdated($post));
+
         flash('Стаья успешно обновлена');
         return redirect('/posts');
     }
 
     public function destroy(Post $post)
     {
+        auth()->user(1)->notify(new PostDeleted($post));
         $post->delete();
         flash('Статья удалена', 'warning');
         return redirect('/posts');
