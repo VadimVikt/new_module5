@@ -2,22 +2,22 @@
 
 namespace App\Listeners;
 
-use App\Events\PostCreated;
+use App\Events\PostDeleted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendPostCreatedNotification
+class SendPostDeleteNotification
 {
-    /**
+     /**
      * Handle the event.
      *
-     * @param  PostCreated  $event
+     * @param  object  $event
      * @return void
      */
-    public function handle(PostCreated $event)
-    { //отправка админу
+    public function handle(PostDeleted $event)
+    {
         \Mail::to(config('mail.admin.address'))->send(  //отправка автору - $event->post->owner->email
-            new \App\Mail\PostCreated($event->post)
+            new \App\Mail\PostDeleted($event->post)
         );
     }
 }
