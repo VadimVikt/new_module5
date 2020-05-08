@@ -4,11 +4,13 @@ namespace App;
 
 
 use App\Events\PostCreated;
+use App\Events\PostDeleted;
 
 class Post extends Model
 {
     protected $dispatchesEvents = [
-        'created' => PostCreated::class
+        'created' => PostCreated::class,
+        'deleted' => PostDeleted::class
     ];
     public function getRouteKeyName()
     {

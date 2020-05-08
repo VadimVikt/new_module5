@@ -45,7 +45,7 @@ class PostsController extends Controller
 
         $post = Post::create($attributes);
 
-        flash('Стаья успешно создана');
+        flash('Статья успешно создана');
 
         return redirect('/posts');
 
@@ -89,7 +89,6 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        auth()->user(1)->notify(new PostDeleted($post));
         $post->delete();
         flash('Статья удалена', 'warning');
         return redirect('/posts');
