@@ -18,11 +18,15 @@
 </head>
 <body>
     @include('layout.nav')
+    <div class="container">
+        @include('layout.flash_message')
+    </div>
         <main role="main" class="container">
             <div class="row">
                 @yield('content')
-
-                @include('layout.sidebar')
+                @section('sidebar')
+                    @include('layout.sidebar')
+                @show
             </div>
         </main>
 

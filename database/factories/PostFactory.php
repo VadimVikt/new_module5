@@ -11,6 +11,7 @@ $factory->define(Post::class, function (Faker $faker) {
     $txt = $faker->realText(rand(1000,3000));
     $createdAt = $faker->dateTimeBetween('-1 months','1 day');
     return [
+        'owner_id' => factory(App\User::class),
         'slug' => Str::slug($title),
         'title' => $title,
         'short_description' => $faker->text(rand(20,60)),
