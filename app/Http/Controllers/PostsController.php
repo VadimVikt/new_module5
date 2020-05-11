@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\PostCreated;
-use App\Notifications\PostDeleted;
-use App\Notifications\PostUpdated;
 use App\Post;
 use App\Tag;
 
@@ -80,8 +77,6 @@ class PostsController extends Controller
         foreach ($tagsToDetach as $tag) {
             $post->tags()->detach($tag); ############
         }
-        //уведомление об изменении
-        auth()->user(1)->notify(new PostUpdated($post));
 
         flash('Стаья успешно обновлена');
         return redirect('/posts');
